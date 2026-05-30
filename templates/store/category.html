@@ -4,9 +4,9 @@
 {% block content %}
 
 <!-- PILLS FILTER BAR -->
-<section class="pills-section">
-  <div class="pills-container">
-    <a href="{% url 'home' %}#products-catalog" class="pill">Trending Products</a>
+<section class="pills-section pills-section--nav">
+  <div class="pills-container" id="category-pills">
+    <a href="{% url 'home' %}" class="pill">Home</a>
     {% for cat in categories %}
     <a href="{% url 'category' slug=cat.slug %}" class="pill {% if cat.slug == category.slug %}active{% endif %}">{{ cat.name }}</a>
     {% endfor %}

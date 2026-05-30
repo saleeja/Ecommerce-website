@@ -6,12 +6,6 @@
 <section class="hero-section">
   <div class="hero-card{% if not site_config.hero_title and not site_config.hero_subtitle %} hero-no-text{% endif %}"
        style="--hero-banner-url: url('{% if site_config.hero_banner %}{{ site_config.hero_banner.url }}{% else %}{% static 'images/hero_products.png' %}{% endif %}');">
-    <img
-      class="hero-banner-img"
-      src="{% if site_config.hero_banner %}{{ site_config.hero_banner.url }}{% else %}{% static 'images/hero_products.png' %}{% endif %}"
-      alt="{{ site_name }} banner"
-      loading="eager"
-    />
     <div class="hero-content">
       {% if site_config.hero_title or site_config.hero_subtitle %}
         <span class="welcome-badge">

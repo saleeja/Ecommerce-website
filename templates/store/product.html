@@ -2,12 +2,14 @@
 {% block title %}{{ product.name }} – JustClick{% endblock %}
 {% block content %}
 
-<section class="section">
-  <div class="breadcrumb">
-    <a href="{% url 'home' %}">Home</a> <span>/</span>
-    <a href="{% url 'category' slug=product.category.slug %}">{{ product.category.name }}</a> <span>/</span>
-    {{ product.name }}
-  </div>
+<section class="product-detail-section">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="{% url 'home' %}">Home</a>
+    <span class="breadcrumb-sep">/</span>
+    <a href="{% url 'category' slug=product.category.slug %}">{{ product.category.name }}</a>
+    <span class="breadcrumb-sep">/</span>
+    <span class="breadcrumb-current">{{ product.name }}</span>
+  </nav>
 
   <div class="product-detail-grid">
     <!-- IMAGE -->
@@ -25,18 +27,21 @@
       <h1 class="product-detail-name">{{ product.name }}</h1>
       <p class="product-detail-desc">{{ product.description }}</p>
 
-      <!-- <div class="product-detail-meta">
+      <div class="product-detail-meta">
         <div class="product-detail-price">₹{{ product.price }}</div>
         {% if product.stock > 0 %}
-        <span class="badge badge-green">✓ In Stock &mdash; {{ product.stock }} available</span>
+        <span class="product-stock-badge">In stock</span>
         {% else %}
-        <span class="badge badge-red">✗ Out of Stock</span>
+        <span class="product-stock-badge out">Out of stock</span>
         {% endif %}
-      </div> -->
+      </div>
 
       {% if product.stock > 0 %}
-      <a href="{{ product.whatsapp_url }}" class="btn btn-whatsapp btn-lg" target="_blank" rel="noopener">
-        📱 Order via WhatsApp
+      <a href="{{ product.whatsapp_url }}" class="btn btn-whatsapp btn-lg product-detail-cta" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12.031 2c-5.506 0-9.975 4.469-9.975 9.975 0 2.018.6 3.954 1.734 5.613l-1.841 5.413 5.561-1.828c1.587.978 3.425 1.492 5.303 1.492h.004c5.502 0 9.971-4.469 9.971-9.975 0-2.669-1.039-5.18-2.924-7.066s-4.397-2.924-7.066-2.924zm6.059 13.914c-.267.751-1.547 1.383-2.128 1.447-.517.057-1.19.083-1.93-.153-.464-.148-1.042-.355-1.785-.678-3.155-1.374-5.163-4.571-5.32-4.781-.157-.21-.118-.28.118-.621.118-.175.267-.351.4-.526.134-.175.18-.298.267-.491.088-.193.044-.368-.022-.508-.066-.14-.596-1.438-.816-1.964-.215-.517-.433-.447-.596-.456-.153-.009-.329-.009-.508-.009s-.474.066-.723.333c-.25.267-.951.93-1.074 1.93-.123.999.728 1.964.829 2.096.101.132 1.403 2.14 3.399 3.003.475.206.846.329 1.135.421.478.152.912.13 1.258.079.386-.057 1.19-.487 1.359-1.026.171-.539.171-.999.123-1.096-.048-.097-.175-.153-.368-.25zm-6.059-11.914z"/>
+        </svg>
+        Order via WhatsApp
       </a>
       {% else %}
       <button class="btn btn-disabled" disabled>Currently Unavailable</button>
