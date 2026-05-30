@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block title %}{{ category.name }} – JustClick{% endblock %}
+{% block content %}
+
+<!-- CATEGORY BANNER -->
+<!-- <section class="banner-section">
+  <div class="category-banner">
+    <div class="breadcrumb-banner">
+      <a href="{% url 'home' %}">Home</a> <span>/</span> {{ category.name }}
+    </div>
+    <h1 class="banner-title">{{ category.name }}</h1>
+  </div>
+</section> -->
+
+<!-- CATEGORY PILLS -->
+<section class="pills-section">
+  <div class="pills-container">
+    <a href="{% url 'home' %}" class="pill">All Products</a>
+    {% for cat in categories %}
+    <a href="{% url 'category' slug=cat.slug %}" class="pill {% if cat.slug == category.slug %}active{% endif %}">{{ cat.name }}</a>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- PRODUCTS GRID -->
+<section class="section-compact">
+  <div class="grid grid-3">
+    {% for product in products %}
+    <div class="product-card">
+      {% if product.image %}
+      <div class="product-img-wrap">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-img" />
+      </div>
+      {% else %}
+      <div class="product-img-placeholder">📦</div>
+      {% endif %}
+      <div class="product-info">
+        <h3 class="product-name">
+          <a href="{% url 'product_detail' slug=product.slug %}">{{ product.name }}</a>
+        </h3>
+        <p class="product-desc">{{ product.description|truncatewords:12 }}</p>
+
+        <!-- <div class="stock-status">
+          {% if product.stock > 0 %}
+          <span class="badge badge-green">In Stock ({{ product.stock }})</span>
+          {% else %}
+          <span class="badge badge-red">Out of Stock</span>
+          {% endif %}
+        </div> -->
+
+        <div class="product-footer">
+          <span class="product-price">₹{{ product.price }}</span>
+          {% if product.stock > 0 %}
+          <a href="{{ product.whatsapp_url }}" class="btn btn-whatsapp" target="_blank" rel="noopener">
+            📱 Order
+          </a>
+          {% else %}
+          <span class="btn btn-disabled">Out of Stock</span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <p class="empty-msg">No products in this category yet.</p>
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock %}

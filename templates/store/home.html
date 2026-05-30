@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}JustClick Store{% endblock %}
+{% block content %}
+
+<!-- HERO (COMPACT & MOBILE FRIENDLY) -->
+<section class="hero-compact">
+  <div class="hero-inner">
+    <h1 class="hero-title">Shop Smarter, <span>Order via WhatsApp</span></h1>
+    <p class="hero-sub">Browse products below and place your order instantly on WhatsApp.</p>
+  </div>
+</section>
+
+<!-- CATEGORY PILLS (COMPACT FILTER BAR) -->
+<section class="pills-section">
+  <div class="pills-container">
+    <a href="{% url 'home' %}" class="pill active">All Products</a>
+    {% for cat in categories %}
+    <a href="{% url 'category' slug=cat.slug %}" class="pill">{{ cat.name }}</a>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- PRODUCTS GRID -->
+<section class="section-compact">
+  <div class="grid grid-3">
+    {% for product in products %}
+    <div class="product-card">
+      {% if product.image %}
+      <div class="product-img-wrap">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-img" />
+      </div>
+      {% else %}
+      <div class="product-img-placeholder">📦</div>
+      {% endif %}
+      <div class="product-info">
+        <span class="product-category">{{ product.category.name }}</span>
+        <h3 class="product-name">
+          <a href="{% url 'product_detail' slug=product.slug %}">{{ product.name }}</a>
+        </h3>
+        <p class="product-desc">{{ product.description|truncatewords:12 }}</p>
+        
+        <!-- <div class="stock-status">
+          {% if product.stock > 0 %}
+          <span class="badge badge-green">In Stock ({{ product.stock }})</span>
+          {% else %}
+          <span class="badge badge-red">Out of Stock</span>
+          {% endif %}
+        </div> -->
+
+        <div class="product-footer">
+          <span class="product-price">₹{{ product.price }}</span>
+          {% if product.stock > 0 %}
+          <a href="{{ product.whatsapp_url }}" class="btn btn-whatsapp" target="_blank" rel="noopener">
+            📱 Order
+          </a>
+          {% else %}
+          <span class="btn btn-disabled">Out of Stock</span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <p class="empty-msg">No products available at the moment.</p>
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock %}
