@@ -38,12 +38,19 @@ class CategoryView(ListView):
 
     def get_queryset(self):
         self.category = get_object_or_404(Category, slug=self.kwargs['slug'])
-        return Product.objects.filter(category=self.category)
+        queryset = Product.objects.filter(category=self.category)
+        q = self.request.GET.get('q', '').strip()
+        if q:
+            queryset = queryset.filter(Q(name__icontains=q) | Q(description__icontains=q))
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['category'] = self.category
         context['categories'] = Category.objects.all()
+        q = self.request.GET.get('q', '').strip()
+        if q:
+            context['search_query'] = q
         return context
 
 class ProductDetailView(DetailView):

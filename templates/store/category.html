@@ -6,7 +6,7 @@
 <!-- PILLS FILTER BAR -->
 <section class="pills-section">
   <div class="pills-container">
-    <a href="{% url 'home' %}" class="pill">Trending Products</a>
+    <a href="{% url 'home' %}#products-catalog" class="pill">Trending Products</a>
     {% for cat in categories %}
     <a href="{% url 'category' slug=cat.slug %}" class="pill {% if cat.slug == category.slug %}active{% endif %}">{{ cat.name }}</a>
     {% endfor %}

@@ -3,24 +3,29 @@
 {% block title %}Online Shoppee – Shop Smart, Order Instantly via WhatsApp{% endblock %}
 {% block content %}
 
-<!-- HERO SECTION -->
 <section class="hero-section">
-  <div class="hero-card">
+  <div class="hero-card {% if not site_config.hero_title and not site_config.hero_subtitle %}hero-no-text{% endif %}" style="background-image: url('{% if site_config.hero_banner %}{{ site_config.hero_banner.url }}{% else %}{% static 'images/hero_products.png' %}{% endif %}');">
     <div class="hero-content">
-      <span class="welcome-badge">
-        <svg viewBox="0 0 24 24" fill="currentColor" style="width:14px; height:14px; color:#ffb300;">
-          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-        </svg>
-        Welcome to Online Shoppee
-      </span>
+      {% if site_config.hero_title or site_config.hero_subtitle %}
+        <span class="welcome-badge">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:14px; height:14px; color:#ffb300;">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+          </svg>
+          Welcome to {{ site_name }}
+        </span>
 
-      <h1 class="hero-title">
-        {{ site_config.hero_title|safe }}
-      </h1>
+        {% if site_config.hero_title %}
+        <h1 class="hero-title">
+          {{ site_config.hero_title|safe }}
+        </h1>
+        {% endif %}
 
-      <p class="hero-sub">
-        {{ site_config.hero_subtitle }}
-      </p>
+        {% if site_config.hero_subtitle %}
+        <p class="hero-sub">
+          {{ site_config.hero_subtitle }}
+        </p>
+        {% endif %}
+      {% endif %}
 
       <div class="hero-buttons">
         <a href="https://wa.me/{{ site_config.whatsapp_number }}" target="_blank" rel="noopener" class="btn btn-whatsapp btn-lg">
@@ -29,7 +34,7 @@
           </svg>
           Order on WhatsApp
         </a>
-        <a href="#products-catalog" class="btn btn-outline btn-lg">
+        <!-- <a href="#products-catalog" class="btn btn-outline btn-lg">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px; height:20px;">
             <rect x="3" y="3" width="7" height="9"></rect>
             <rect x="14" y="3" width="7" height="5"></rect>
@@ -37,7 +42,7 @@
             <rect x="3" y="16" width="7" height="5"></rect>
           </svg>
           Browse Products
-        </a>
+        </a> -->
       </div>
 
       <div class="hero-badge-row">
@@ -53,27 +58,13 @@
       </div>
     </div>
 
-    <div class="hero-visual">
-      {% if site_config.hero_banner %}
-      <img src="{{ site_config.hero_banner.url }}" alt="Premium Products" class="hero-img" />
-      {% else %}
-      <img src="{% static 'images/hero_products.png' %}" alt="Premium Products" class="hero-img" />
-      {% endif %}
-      <div class="quality-badge">
+    <!-- Right column layout spacer to let the background image shine through -->
+    <!-- <div class="hero-visual" style="min-height: 100px;"> -->
+      <!-- <div class="quality-badge" style="position: absolute; top: 20px; right: 20px;">
         <span>⭐</span>
         Top Quality
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PILLS FILTER BAR -->
-<section class="pills-section">
-  <div class="pills-container">
-    <a href="{% url 'home' %}" class="pill {% if not search_query %}active{% endif %}">Trending Products</a>
-    {% for cat in categories %}
-    <a href="{% url 'category' slug=cat.slug %}" class="pill">{{ cat.name }}</a>
-    {% endfor %}
+      </div> -->
+    <!-- </div> -->
   </div>
 </section>
 
@@ -132,8 +123,8 @@
   </div>
 </section>
 
-<!-- MAIN WORKSPACE -->
-<section class="workspace-section" id="products-catalog">
+<!-- PILLS FILTER BAR -->
+<section class="pills-section">
   <div class="workspace-grid">
     <!-- LEFT SIDEBAR: SHOP BY CATEGORY -->
     <aside class="category-sidebar">
@@ -163,7 +154,40 @@
         </a>
         {% endfor %}
       </div>
-    </aside>
+</section>
+
+<!-- MAIN WORKSPACE -->
+<section class="workspace-section" id="products-catalog">
+  <div class="section-grid">
+    <!-- LEFT SIDEBAR: SHOP BY CATEGORY -->
+    <!-- <aside class="category-sidebar">
+      <div class="sidebar-title-row">
+        <h3 class="sidebar-title">Shop by Category</h3> -->
+        <!-- <a href="{% url 'home' %}" class="sidebar-view-all">View all →</a> -->
+      <!-- </div>
+      <div class="sidebar-list">
+        {% for cat in categories %}
+        <a href="{% url 'category' slug=cat.slug %}" class="sidebar-item">
+          <span class="sidebar-item-icon">
+            {% if "electronics" in cat.name|lower %} -->
+            <!-- Headphones Icon -->
+            <!-- <svg viewBox="0 0 24 24"><path d="M12 2c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z"/></svg>
+            {% elif "kitchen" in cat.name|lower or "home" in cat.name|lower %} -->
+            <!-- Cooking Pot / Living Room Icon -->
+            <!-- <svg viewBox="0 0 24 24"><path d="M2 6h20v2H2zm16 4v10H6V10zm2-2H4v14h16V8zm-8-5c-1.66 0-3 1.34-3 3h6c0-1.66-1.34-3-3-3z"/></svg>
+            {% elif "mobile" in cat.name|lower or "phone" in cat.name|lower %} -->
+            <!-- Smartphone Icon -->
+            <!-- <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+            {% else %} -->
+            <!-- Backpack / Accessories Icon -->
+            <!-- <svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>
+            {% endif %}
+          </span>
+          {{ cat.name }}
+        </a>
+        {% endfor %}
+      </div>
+    </aside> -->
 
     <!-- RIGHT CATALOG: FEATURED PRODUCTS -->
     <div class="products-container">

@@ -75,7 +75,8 @@ body {
   fill: currentColor;
 }
 .logo-img {
-  max-height: 40px;
+  height: 32px;
+  max-height: 32px;
   width: auto;
   object-fit: contain;
   border-radius: 4px;
@@ -223,7 +224,9 @@ body {
   padding: 0 2rem;
 }
 .hero-card {
-  background: radial-gradient(circle at 100% 50%, #e8f5f3 0%, #ffffff 75%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   border: 1px solid #d1eae6;
   border-radius: 24px;
   padding: 2.5rem;
@@ -235,11 +238,40 @@ body {
   overflow: hidden;
   box-shadow: var(--shadow);
 }
+.hero-card.hero-no-text {
+  grid-template-columns: 1fr;
+  min-height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.hero-card.hero-no-text .hero-content {
+  align-items: center;
+  width: 100%;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+.hero-card.hero-no-text .hero-visual {
+  display: none;
+}
 .hero-content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   z-index: 2;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 2.2rem;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  max-width: 580px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 .welcome-badge {
   background: #e6f4f2;
@@ -258,18 +290,20 @@ body {
   font-size: clamp(2rem, 5vw, 3.2rem);
   font-weight: 900;
   line-height: 1.15;
-  color: var(--text-dark);
+  color: #ffffff;
   margin-bottom: 1.2rem;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 .hero-title span {
   color: var(--primary);
 }
 .hero-sub {
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.85);
   font-size: 1rem;
   line-height: 1.6;
   margin-bottom: 2rem;
   max-width: 480px;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
 .hero-buttons {
   display: flex;
@@ -288,12 +322,14 @@ body {
   gap: 0.4rem;
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--text-dark);
-  background: #ffffff;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
   padding: 0.4rem 0.8rem;
   border-radius: 20px;
-  border: 1px solid var(--border);
-  box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 .hero-visual {
   position: relative;
@@ -427,7 +463,7 @@ body {
   padding: 1rem 2rem 3rem;
 }
 .workspace-grid {
-  display: grid;
+  display: block;
   grid-template-columns: 260px 1fr;
   gap: 2rem;
   align-items: start;
@@ -874,7 +910,8 @@ body {
     font-size: 1.35rem;
   }
   .logo-img {
-    max-height: 32px;
+    height: 28px;
+    max-height: 28px;
   }
   .search-container {
     grid-area: search;
@@ -937,6 +974,14 @@ body {
     padding: 1.5rem 1rem;
     gap: 1.25rem;
   }
+  .hero-card.hero-no-text {
+    min-height: 240px;
+    padding: 2rem 1rem;
+  }
+  .hero-content {
+    padding: 1.25rem 1rem;
+    max-width: 100%;
+  }
   .hero-title {
     font-size: 1.8rem;
   }
@@ -961,13 +1006,29 @@ body {
     font-size: 0.75rem;
     padding: 0.35rem 0.75rem;
   }
+  .hero-visual {
+    position: relative;
+    display: inline-block;
+    margin: 0.5rem auto 0;
+    max-width: 100%;
+  }
   .hero-img {
-    max-height: 180px;
+    max-height: 200px;
+    max-width: 280px;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    display: block;
+    object-fit: contain;
   }
   .quality-badge {
-    width: 54px;
-    height: 54px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 52px;
+    height: 52px;
     font-size: 0.6rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   }
   .quality-badge span {
     font-size: 0.75rem;
@@ -1040,5 +1101,43 @@ body {
   .product-footer .btn svg {
     width: 14px;
     height: 14px;
+  }
+}
+
+.category-sidebar {
+    width: 100%;
+}
+
+.sidebar-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+.sidebar-item {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .75rem;
+}
+
+@media (max-width: 768px) {
+
+  .sidebar-list {
+    display: flex;
+    overflow-x: auto;
+    gap: 0.75rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .sidebar-item {
+    flex: 0 0 auto;
+    min-width: 130px;
+    padding: 0.75rem;
+    border-radius: 12px;
   }
 }

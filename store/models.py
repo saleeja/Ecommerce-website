@@ -27,7 +27,7 @@ class StoreConfiguration(models.Model):
     site_name = models.CharField(max_length=100, default="JustClick")
     site_tagline = models.CharField(max_length=255, default="Shop Smarter, Order via WhatsApp")
     whatsapp_number = models.CharField(max_length=20, default="1234567890", help_text="Business WhatsApp phone number")
-    logo = models.ImageField(upload_to='store/', blank=True, null=True, help_text="Upload custom store logo (fallback to default SVG logo if empty)")
+    logo = models.ImageField(upload_to='store/', blank=True, null=True, help_text="Upload custom store logo. For best styling, please upload a small image with a height around 32px to 40px, ideally a transparent PNG/SVG (fallback to default SVG logo if empty)")
     hero_title = models.CharField(max_length=255, default="Shop Smart.<br>Order Instantly via <span>WhatsApp</span>", help_text="HTML tags like <span> are allowed for styling")
     hero_subtitle = models.TextField(default="Quality products, best prices and fast delivery. Just choose and order on WhatsApp!")
     hero_banner = models.ImageField(upload_to='store/', blank=True, null=True, help_text="Upload custom hero banner image (fallback to default generated image if empty)")
