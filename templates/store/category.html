@@ -1,68 +1,101 @@
 {% extends 'base.html' %}
-{% block title %}{{ category.name }} – JustClick{% endblock %}
+{% load static %}
+{% block title %}{{ category.name }} – Online Shoppee{% endblock %}
 {% block content %}
 
-<!-- CATEGORY BANNER -->
-<!-- <section class="banner-section">
-  <div class="category-banner">
-    <div class="breadcrumb-banner">
-      <a href="{% url 'home' %}">Home</a> <span>/</span> {{ category.name }}
-    </div>
-    <h1 class="banner-title">{{ category.name }}</h1>
-  </div>
-</section> -->
-
-<!-- CATEGORY PILLS -->
+<!-- PILLS FILTER BAR -->
 <section class="pills-section">
   <div class="pills-container">
-    <a href="{% url 'home' %}" class="pill">All Products</a>
+    <a href="{% url 'home' %}" class="pill">Trending Products</a>
     {% for cat in categories %}
     <a href="{% url 'category' slug=cat.slug %}" class="pill {% if cat.slug == category.slug %}active{% endif %}">{{ cat.name }}</a>
     {% endfor %}
   </div>
 </section>
 
-<!-- PRODUCTS GRID -->
-<section class="section-compact">
-  <div class="grid grid-3">
-    {% for product in products %}
-    <div class="product-card">
-      {% if product.image %}
-      <div class="product-img-wrap">
-        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-img" />
+<!-- MAIN WORKSPACE -->
+<section class="workspace-section">
+  <div class="section-grid">
+    <!-- LEFT SIDEBAR: SHOP BY CATEGORY -->
+    <!-- <aside class="category-sidebar">
+      <div class="sidebar-title-row">
+        <h3 class="sidebar-title">Shop by Category</h3> -->
+        <!-- <a href="{% url 'home' %}" class="sidebar-view-all">View all →</a> -->
+      <!-- </div>
+      <div class="sidebar-list">
+        {% for cat in categories %}
+        <a href="{% url 'category' slug=cat.slug %}" class="sidebar-item {% if cat.slug == category.slug %}active{% endif %}">
+          <span class="sidebar-item-icon">
+            {% if "electronics" in cat.name|lower %} -->
+            <!-- Headphones Icon -->
+            <!-- <svg viewBox="0 0 24 24"><path d="M12 2c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z"/></svg>
+            {% elif "kitchen" in cat.name|lower or "home" in cat.name|lower %} -->
+            <!-- Cooking Pot / Living Room Icon -->
+            <!-- <svg viewBox="0 0 24 24"><path d="M2 6h20v2H2zm16 4v10H6V10zm2-2H4v14h16V8zm-8-5c-1.66 0-3 1.34-3 3h6c0-1.66-1.34-3-3-3z"/></svg>
+            {% elif "mobile" in cat.name|lower or "phone" in cat.name|lower %} -->
+            <!-- Smartphone Icon -->
+            <!-- <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+            {% else %} -->
+            <!-- Backpack / Accessories Icon -->
+            <!-- <svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>
+            {% endif %}
+          </span>
+          {{ cat.name }}
+        </a>
+        {% endfor %}
       </div>
-      {% else %}
-      <div class="product-img-placeholder">📦</div>
-      {% endif %}
-      <div class="product-info">
-        <h3 class="product-name">
-          <a href="{% url 'product_detail' slug=product.slug %}">{{ product.name }}</a>
+    </aside> -->
+
+    <!-- RIGHT CATALOG: CATEGORY PRODUCTS -->
+    <div class="products-container">
+      <div class="products-header">
+        <h3 class="products-title">
+          {{ category.name }} Products
         </h3>
-        <p class="product-desc">{{ product.description|truncatewords:12 }}</p>
+        <!-- <a href="{% url 'home' %}" class="products-view-all">All Categories &rarr;</a> -->
+      </div>
 
-        <!-- <div class="stock-status">
-          {% if product.stock > 0 %}
-          <span class="badge badge-green">In Stock ({{ product.stock }})</span>
-          {% else %}
-          <span class="badge badge-red">Out of Stock</span>
-          {% endif %}
-        </div> -->
+      <div class="grid grid-3">
+        {% for product in products %}
+        <div class="product-card">
+          <div class="product-img-wrap">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-img" />
+            {% else %}
+            <div class="product-img-placeholder">📦</div>
+            {% endif %}
+          </div>
+          
+          <div class="product-info">
+            <h4 class="product-name">
+              <a href="{% url 'product_detail' slug=product.slug %}">{{ product.name }}</a>
+            </h4>
+            <p class="product-desc">{{ product.description|truncatewords:10 }}</p>
+            
+            <!-- <div class="product-rating">
+              ⭐⭐⭐⭐⭐ <span>(4.8)</span>
+            </div> -->
 
-        <div class="product-footer">
-          <span class="product-price">₹{{ product.price }}</span>
-          {% if product.stock > 0 %}
-          <a href="{{ product.whatsapp_url }}" class="btn btn-whatsapp" target="_blank" rel="noopener">
-            📱 Order
-          </a>
-          {% else %}
-          <span class="btn btn-disabled">Out of Stock</span>
-          {% endif %}
+            <div class="product-footer">
+              <div class="product-price">₹{{ product.price }}</div>
+              {% if product.stock > 0 %}
+              <a href="{{ product.whatsapp_url }}" class="btn btn-whatsapp" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12.031 2c-5.506 0-9.975 4.469-9.975 9.975 0 2.018.6 3.954 1.734 5.613l-1.841 5.413 5.561-1.828c1.587.978 3.425 1.492 5.303 1.492h.004c5.502 0 9.971-4.469 9.971-9.975 0-2.669-1.039-5.18-2.924-7.066s-4.397-2.924-7.066-2.924zm6.059 13.914c-.267.751-1.547 1.383-2.128 1.447-.517.057-1.19.083-1.93-.153-.464-.148-1.042-.355-1.785-.678-3.155-1.374-5.163-4.571-5.32-4.781-.157-.21-.118-.28.118-.621.118-.175.267-.351.4-.526.134-.175.18-.298.267-.491.088-.193.044-.368-.022-.508-.066-.14-.596-1.438-.816-1.964-.215-.517-.433-.447-.596-.456-.153-.009-.329-.009-.508-.009s-.474.066-.723.333c-.25.267-.951.93-1.074 1.93-.123.999.728 1.964.829 2.096.101.132 1.403 2.14 3.399 3.003.475.206.846.329 1.135.421.478.152.912.13 1.258.079.386-.057 1.19-.487 1.359-1.026.171-.539.171-.999.123-1.096-.048-.097-.175-.153-.368-.25zm-6.059-11.914z"/>
+                </svg>
+                Order on WhatsApp
+              </a>
+              {% else %}
+              <span class="btn btn-disabled">Out of Stock</span>
+              {% endif %}
+            </div>
+          </div>
         </div>
+        {% empty %}
+        <p class="empty-msg">No products in this category yet.</p>
+        {% endfor %}
       </div>
     </div>
-    {% empty %}
-    <p class="empty-msg">No products in this category yet.</p>
-    {% endfor %}
   </div>
 </section>
 

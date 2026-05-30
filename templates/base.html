@@ -13,15 +13,80 @@
 </head>
 <body>
 
-  <!-- NAV -->
+  <!-- TIERED NAVBAR -->
   <nav class="navbar">
     <div class="nav-inner">
-      <a href="{% url 'home' %}" class="nav-logo">{{ site_name }}</a>
-      <div class="nav-links">
-        <!-- <a href="{% url 'home' %}">Home</a> -->
+      <!-- Logo -->
+      <a href="{% url 'home' %}" class="nav-logo">
+          {% if site_config.logo %}
+              <img
+                  src="{{ site_config.logo.url }}"
+                  alt="{{ site_name }}"
+                  class="logo-img"
+              />
+          {% else %}
+              <svg viewBox="0 0 24 24">
+                  <!-- svg path -->
+              </svg>
+          {% endif %}
+
+          <span class="logo-text">{{ site_name }}</span>
+      </a>
+
+      <!-- Search Bar -->
+      <div class="search-container">
+        <form action="{% url 'home' %}" method="GET" class="search-form">
+          <input type="text" name="q" value="{{ search_query|default:'' }}" placeholder="Search for products..." class="search-input" />
+          <button type="submit" class="search-btn" aria-label="Search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- Action Links -->
+      <div class="nav-right-actions">
+        <a href="https://wa.me/{{ site_config.whatsapp_number }}" target="_blank" rel="noopener" class="nav-action-link">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="color: #25d366;">
+            <path d="M12.031 2c-5.506 0-9.975 4.469-9.975 9.975 0 2.018.6 3.954 1.734 5.613l-1.841 5.413 5.561-1.828c1.587.978 3.425 1.492 5.303 1.492h.004c5.502 0 9.971-4.469 9.971-9.975 0-2.669-1.039-5.18-2.924-7.066s-4.397-2.924-7.066-2.924zm6.059 13.914c-.267.751-1.547 1.383-2.128 1.447-.517.057-1.19.083-1.93-.153-.464-.148-1.042-.355-1.785-.678-3.155-1.374-5.163-4.571-5.32-4.781-.157-.21-.118-.28.118-.621.118-.175.267-.351.4-.526.134-.175.18-.298.267-.491.088-.193.044-.368-.022-.508-.066-.14-.596-1.438-.816-1.964-.215-.517-.433-.447-.596-.456-.153-.009-.329-.009-.508-.009s-.474.066-.723.333c-.25.267-.951.93-1.074 1.93-.123.999.728 1.964.829 2.096.101.132 1.403 2.14 3.399 3.003.475.206.846.329 1.135.421.478.152.912.13 1.258.079.386-.057 1.19-.487 1.359-1.026.171-.539.171-.999.123-1.096-.048-.097-.175-.153-.368-.25zm-6.059-11.914z"/>
+          </svg>
+          <span>Order on WhatsApp</span>
+        </a>
+        <!-- <a href="#" class="nav-action-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span>My Cart <strong class="cart-badge">0</strong></span>
+        </a> -->
       </div>
     </div>
   </nav>
+
+  <!-- SUB-NAVBAR -->
+  <div class="sub-navbar">
+    <div class="sub-nav-inner">
+      <div class="sub-nav-links">
+        <!-- <a href="{% url 'home' %}" class="category-dropdown-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px; height:16px;">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </a> -->
+      </div>
+      
+      <div class="trusted-badge">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+        </svg>
+        <span>Trusted Store</span>
+      </div>
+    </div>
+  </div>
 
   <!-- CONTENT -->
   <main class="site-main">
@@ -30,7 +95,7 @@
 
   <!-- FOOTER -->
   <footer class="site-footer">
-    <p>© 2025 {{ site_name }} &mdash; All Rights Reserved &mdash; Order via WhatsApp 📱</p>
+    <p>© 2026 {{ site_name }} &mdash; Premium Online Shoppee &mdash; Order via WhatsApp 📱</p>
   </footer>
 
 </body>

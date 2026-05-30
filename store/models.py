@@ -27,6 +27,10 @@ class StoreConfiguration(models.Model):
     site_name = models.CharField(max_length=100, default="JustClick")
     site_tagline = models.CharField(max_length=255, default="Shop Smarter, Order via WhatsApp")
     whatsapp_number = models.CharField(max_length=20, default="1234567890", help_text="Business WhatsApp phone number")
+    logo = models.ImageField(upload_to='store/', blank=True, null=True, help_text="Upload custom store logo (fallback to default SVG logo if empty)")
+    hero_title = models.CharField(max_length=255, default="Shop Smart.<br>Order Instantly via <span>WhatsApp</span>", help_text="HTML tags like <span> are allowed for styling")
+    hero_subtitle = models.TextField(default="Quality products, best prices and fast delivery. Just choose and order on WhatsApp!")
+    hero_banner = models.ImageField(upload_to='store/', blank=True, null=True, help_text="Upload custom hero banner image (fallback to default generated image if empty)")
 
     class Meta:
         verbose_name = "Store Configuration"
@@ -44,6 +48,7 @@ class Product(models.Model):
     price      = models.DecimalField(max_digits=10, decimal_places=2)
     stock      = models.PositiveIntegerField(default=0)
     image      = models.ImageField(upload_to='products/', blank=True, null=True)
+    is_featured = models.BooleanField(default=False, help_text="Show this product in the Featured Products section on the homepage")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

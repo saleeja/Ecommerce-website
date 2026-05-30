@@ -1,8 +1,8 @@
-from .models import StoreConfiguration
+from .models import StoreConfiguration, Category
 
 
 def store_config(request):
-    """Inject StoreConfiguration into every template context."""
+    """Inject StoreConfiguration and Categories into every template context."""
     config = StoreConfiguration.objects.first()
     if not config:
         # Create a default config if none exists
@@ -11,4 +11,5 @@ def store_config(request):
         'site_config': config,
         'site_name': config.site_name,
         'site_tagline': config.site_tagline,
+        'categories': Category.objects.all(),
     }
