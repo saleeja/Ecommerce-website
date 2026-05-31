@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
             name='StoreConfiguration',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('site_name', models.CharField(default='JustClick', max_length=100)),
+                ('site_name', models.CharField(default='Papparazzo', max_length=100)),
                 ('site_tagline', models.CharField(default='Shop Smarter, Order via WhatsApp', max_length=255)),
                 ('whatsapp_number', models.CharField(default='1234567890', help_text='Business WhatsApp phone number', max_length=20)),
             ],

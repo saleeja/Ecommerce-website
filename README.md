@@ -1,4 +1,4 @@
-# Ecommerce Website (JustClick)
+# Ecommerce Website (Papparazzo)
 
 Django storefront with admin (Jazzmin), categories, products, and media uploads.
 

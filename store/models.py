@@ -24,7 +24,7 @@ class Category(models.Model):
 
 
 class StoreConfiguration(models.Model):
-    site_name = models.CharField(max_length=100, default="JustClick")
+    site_name = models.CharField(max_length=100, default="Papparazzo")
     site_tagline = models.CharField(max_length=255, default="Shop Smarter, Order via WhatsApp")
     whatsapp_number = models.CharField(max_length=20, default="1234567890", help_text="Business WhatsApp phone number")
     logo = models.ImageField(upload_to='store/', blank=True, null=True, help_text="Upload custom store logo. For best styling, please upload a small image with a height around 32px to 40px, ideally a transparent PNG/SVG (fallback to default SVG logo if empty)")

@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: justclick-store
+    name: Papparazzo-store
     runtime: python
     plan: free
     buildCommand: "./build.sh"

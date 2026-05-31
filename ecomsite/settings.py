@@ -65,10 +65,10 @@ INSTALLED_APPS = [
 ]
 
 JAZZMIN_SETTINGS = {
-    "site_title": "JustClick Admin",
-    "site_header": "JustClick",
-    "site_brand": "JustClick Store",
-    "welcome_sign": "Welcome to JustClick Admin",
+    "site_title": "Papparazzo Admin",
+    "site_header": "Papparazzo",
+    "site_brand": "Papparazzo Store",
+    "welcome_sign": "Welcome to Papparazzo Admin",
     "show_sidebar": True,
     "navigation_expanded": True,
     "icons": {
